@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2016 | Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2016 | Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -19,6 +19,8 @@ public class TargetSpf extends Spf
 {
 	public final CheckboxSetting players = new CheckboxSetting("Players", true);
 	public final CheckboxSetting animals = new CheckboxSetting("Animals", true);
+	public final CheckboxSetting villagers = new CheckboxSetting("Villagers", true);
+	public final CheckboxSetting zombievillagers = new CheckboxSetting("Zombie Villagers", true);
 	public final CheckboxSetting monsters = new CheckboxSetting("Monsters",
 		true);
 	public final CheckboxSetting golems = new CheckboxSetting("Golems", true);
@@ -41,6 +43,8 @@ public class TargetSpf extends Spf
 		settings.add(animals);
 		settings.add(monsters);
 		settings.add(golems);
+		settings.add(villagers);
+		settings.add(zombievillagers);
 		
 		settings.add(sleepingPlayers);
 		settings.add(invisiblePlayers);

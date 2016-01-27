@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -21,7 +21,9 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityGolem;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntitySlime;
+import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityAmbientCreature;
+import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.passive.EntityWaterMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.MathHelper;
@@ -155,7 +157,15 @@ public class EntityUtils
 				.isPlayerSleeping() && targetSpf.players.isChecked())
 				&& (!targetSpf.teams.isChecked() || checkName(((EntityPlayer)o)
 					.getDisplayName().getFormattedText()));
-		
+
+		// Villagers
+		if(o instanceof EntityVillager) {
+			return targetSpf.villagers.isChecked()
+					&& (!targetSpf.teams.isChecked()
+					|| !((Entity)o).hasCustomName() || checkName(((Entity)o)
+					.getCustomNameTag()));
+		}
+
 		// animals
 		if(o instanceof EntityAgeable || o instanceof EntityAmbientCreature
 			|| o instanceof EntityWaterMob)
@@ -163,7 +173,23 @@ public class EntityUtils
 				&& (!targetSpf.teams.isChecked()
 					|| !((Entity)o).hasCustomName() || checkName(((Entity)o)
 						.getCustomNameTag()));
-		
+
+		// Zombie Villagers
+		if(o instanceof EntityZombie) {
+			EntityZombie zombie = (EntityZombie)o;
+			if(zombie.isVillager()) {
+				return targetSpf.zombievillagers.isChecked()
+						&& (!targetSpf.teams.isChecked()
+						|| !((Entity)o).hasCustomName() || checkName(((Entity)o)
+						.getCustomNameTag()));
+			} else {
+				return targetSpf.monsters.isChecked()
+						&& (!targetSpf.teams.isChecked()
+						|| !((Entity)o).hasCustomName() || checkName(((Entity)o)
+						.getCustomNameTag()));
+			}
+		}
+
 		// monsters
 		if(o instanceof EntityMob || o instanceof EntitySlime
 			|| o instanceof EntityFlying)
@@ -192,7 +218,7 @@ public class EntityUtils
 			WurstClient.INSTANCE.special.targetSpf.teamColors.getSelected();
 		boolean hasKnownColor = false;
 		for(int i = 0; i < 16; i++)
-			if(name.contains("§" + colors[i]))
+			if(name.contains("ï¿½" + colors[i]))
 			{
 				hasKnownColor = true;
 				if(teamColors[i])
